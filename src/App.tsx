@@ -11,6 +11,7 @@ import mooAudioFile from './assets/moo.mp3';
 
 export default function App() {
   const [isPressed, setIsPressed] = useState(false);
+  const [adClicked, setAdClicked] = useState(false);
 
   const audioContextRef = useRef<AudioContext | null>(null);
   const decodedBufferRef = useRef<AudioBuffer | null>(null);
@@ -129,6 +130,35 @@ export default function App() {
           isPressed ? 'scale-[1.015]' : 'scale-100'
         }`}
       />
+
+      {/* Bottom text: High-visibility spammy/clickbait link or funny post-click reveal */}
+      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 pointer-events-auto text-center px-4 w-full max-w-sm">
+        {!adClicked ? (
+          <a
+            href="https://www.profitableratecpmnetwork.com/cgakk4hn1?key=6edfcbda84a8b3c62c5dc8231e99b2ce"
+            target="_blank"
+            rel="noopener noreferrer"
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              e.stopPropagation();
+              setAdClicked(true);
+            }}
+            className="inline-flex items-center gap-1.5 text-xs md:text-sm font-bold text-yellow-300 hover:text-yellow-200 no-underline hover:underline underline-offset-2 decoration-yellow-300 transition-all duration-150 animate-pulse drop-shadow-[0_2px_4px_rgba(0,0,0,1)] cursor-pointer select-none"
+          >
+            <span>👉</span>
+            <span className="tracking-wide uppercase">Don't click here</span>
+            <span>👈</span>
+          </a>
+        ) : (
+          <p
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
+            className="text-xs font-semibold text-yellow-300 drop-shadow-[0_2px_4px_rgba(0,0,0,1)] select-none transition-all duration-300"
+          >
+            haha it was an ad. I fooled you, but it will help me pay my hosting fees. 🐮
+          </p>
+        )}
+      </div>
 
       {/* Vercel Web Analytics */}
       <Analytics />
